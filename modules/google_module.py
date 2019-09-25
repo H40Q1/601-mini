@@ -13,17 +13,22 @@ texts=[]
 texts.append(text1)
 texts.append(text2)
 texts.append(text3)
+scores=[]
 for text in texts:
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT)
 
-    # sentiment feedback
+    #sentiment feedback
     sentiment = client.analyze_sentiment(document=document).document_sentiment
 
     print('Text: {}'.format(text))
     print("Sentiment Score:", sentiment.score)
+ 
+    scores.append(sentiment.score)
 
+
+    #sentiment level
     if sentiment.score <=1 and sentiment.score>=0.7:
         print("Sentiment level: Very Happy")
 
@@ -35,14 +40,4 @@ for text in texts:
 
     else:
         print("Sentiment level: Disatified")
- 
-
-
-
-
-
-
-
-
-
 
