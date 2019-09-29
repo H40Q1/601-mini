@@ -8,14 +8,18 @@ import json
 
 
 #Twitter API credentials
-consumer_key = "Enter the consumer_key"
-consumer_secret = "Enter the consumer_secret"
-access_key = "Enter the access_key"
-access_secret = "Enter the access_secret"
+api_keys = {}
+with open('./api_key.json') as json_file:
+    api_keys = json.load(json_file)
+
+consumer_key = api_keys["twitter_consumer"]
+consumer_secret = api_keys["twitter_consumer_secret"]
+access_key = api_keys["twitter_access_token"]
+access_secret = api_keys["twitter_access_secret"]
 
  
 def get_all_tweets(product_name):
-    
+    print("Searching tweets for " + product_name)
     #Twitter only allows access to a users most recent 3240 tweets with this method
     
     #authorize twitter, initialize tweepy
@@ -24,44 +28,16 @@ def get_all_tweets(product_name):
     api = tweepy.API(auth)
     
     #initialize a list to hold all the tweepy Tweets
-    alltweets = tweepy.Cursor(api.search, q=str(product_name), geocode="-22.9122,-43.2302,5km").items(20) 
+    alltweets = tweepy.Cursor(api.search, q=str(product_name), geocode="42.361145,-71.057083,25km").items(20) 
     
     #make initial request for most recent tweets (200 is the maximum allowed count)
-    new_tweets = api.user_timeline(screen_name = screen_name,count=10)
+    # new_tweets = api.user_timeline(screen_name = product_name,count=10)
+    tweet_lst = []
+    for tweet in alltweets:
+        tweet_lst.append(tweet.text)
+    return tweet_lst
     
-    for tweet in new_tweets:
-       print (tweet.created_at, tweet.text, tweet.lang)
-    #save most recent tweets
-    # alltweets.extend(new_tweets)
-    
-    # #save the id of the oldest tweet less one
-    # oldest = alltweets[-1].id - 1
-    
-    # #keep grabbing tweets until there are no tweets left to grab
-    # while len(new_tweets) > 0:
-        
-    #     #all subsiquent requests use the max_id param to prevent duplicates
-    #     new_tweets = api.user_timeline(screen_name = screen_name,count=10,max_id=oldest)
-        
-    #     #save most recent tweets
-    #     alltweets.extend(new_tweets)
-        
-    #     #update the id of the oldest tweet less one
-    #     oldest = alltweets[-1].id - 1
-    #     if(len(alltweets) > 15):
-    #         break
-    #     print "...%s tweets downloaded so far" % (len(alltweets))
-       
-    # #write tweet objects to JSON
-    # file = open('tweet.json', 'w') 
-    # print "Writing tweet objects to JSON please wait..."
-    # for status in alltweets:
-    #     json.dump(status._json,file,sort_keys = True,indent = 4)
-    
-    # #close the file
-    # print "Done"
-    # file.close()
 
 if __name__ == '__main__':
     #pass in the username of the account you want to download
-    get_all_tweets("HermesBirkins")
+    get_all_tweets("#iPhone11")
