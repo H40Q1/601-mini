@@ -57,7 +57,7 @@ Text: Shoutouts to #Apple we up! #iPhone11 #iPhone11Pro https://t.co/c3Yg5HfciL
 ### 2) Test case (Google NPL):
 To test the google NPL, we randomly select 10 tweets with keyword "#iPhone11" to see how people's feel about the new iPhone. Ten tweets were randonly picked from twitter and imported into the [google_module.py](https://github.com/H40Q1/EC601MiniProject/blob/master/modules/google_module.py). The outcome shows that 6 of these 10 twitter users feel OK, 2 feel happy, 1 feel very happy and the 1 feel disatified.<br/>
 <br/>
-The visualize the outcome, the results were imported to the [visualize_data.py](https://github.com/H40Q1/EC601MiniProject/blob/master/visualize_data.py). The pie chart below shows the sentiment level distribution of these twitter users.<br/>
+The visualize the outcome, the results were imported to the [visualize_data.py](https://github.com/H40Q1/EC601MiniProject/blob/master/modules/visualize_data.py). The pie chart below shows the sentiment level distribution of these twitter users.<br/>
 ![test result](docs/testcase01.png)<br/>
 
 <br/> 
